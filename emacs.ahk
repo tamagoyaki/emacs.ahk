@@ -29,6 +29,15 @@ is_target()
     Return 1
   IfWinActive,ahk_class Vim ; GVIM
     Return 1
+  IfWinActive,ahk_class Emacs         ; Emacs
+    Return 1
+  IfWinActive,ahk_class mintty        ; bash/cygwin
+    Return 1
+  IfWinActive,ahk_class vcxsrv/x X rl ; Xwindow
+    Return 1
+  IfWinActive,ahk_class VTWin32       ; teraterm
+    Return 1
+
 ;  IfWinActive,ahk_class SWT_Window0 ; Eclipse
 ;    Return 1
 ;   IfWinActive,ahk_class Xming X
@@ -338,7 +347,7 @@ scroll_down()
   Return  
   
 ;$^{Space}::
-^vk20sc039::
+^vk20::
   If is_target()
     Send {CtrlDown}{Space}{CtrlUp}
   Else
@@ -402,4 +411,34 @@ scroll_down()
   Else
     scroll_up()
   Return
-
+!<::
+  If is_target()
+    Send %A_ThisHotkey%
+  Else
+    Send {HOME}
+  Return
+!>::
+  If is_target()
+    Send %A_ThisHotkey%
+  Else
+    Send {END}
+  Return
+;
+; instead of >!v and >!w
+;
+;   !v and !w can catch the RAlt+v and RAlt+w. but the Send %A_ThisHotkey%
+;   doesn't send the key correctolly. It seems to add CTRL key.
+;
+;   Weirdly, this process works fine.
+;
+;     > MsgBox "hoge"
+;     > Send %A_ThisHotkey%
+;
+;   But this one is not.
+;
+;     > SetKeyDelay 1000
+;     > Send %A_ThisHotkey%
+;
+;   I have no idea, any suggestion ?
+;
+RAlt::Alt
