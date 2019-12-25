@@ -411,6 +411,7 @@ scroll_down()
   Else
     scroll_up()
   Return
+<<<<<<< HEAD
 !<::
   If is_target()
     Send %A_ThisHotkey%
@@ -423,6 +424,9 @@ scroll_down()
   Else
     Send {END}
   Return
+=======
+
+>>>>>>> cc5c8572b0b4d360143d7c3363882f8b4eacc26e
 ;
 ; instead of >!v and >!w
 ;
